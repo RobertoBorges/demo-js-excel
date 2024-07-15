@@ -37,11 +37,13 @@ your-project-name/
 ### Build and Run the Project
 
 1. **Install Dependencies**:
+
     ```bash
     npm install
     ```
 
 2. **Start the Local Web Server a local excel file**:
+
     ```bash
     npm start
     ```
@@ -49,6 +51,7 @@ your-project-name/
 Or
 
 2. **Start the Local Web Server running a web browser excel file**:
+
     ```bash
     npm run start:web -- --document "https://url of your Excel document"
     ```
