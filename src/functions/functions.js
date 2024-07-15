@@ -1,5 +1,6 @@
 ﻿/* eslint-disable @typescript-eslint/no-unused-vars */
 /* global console setInterval, clearInterval */
+import fetch from "node-fetch";
 
 /**
  * Add two numbers
@@ -10,6 +11,17 @@
  */
 function add(first, second) {
   return first + second;
+}
+
+/**
+ * Multiply two numbers
+ * @customfunction
+ * @param {number} first First number
+ * @param {number} second Second number
+ * @returns {number} The product of the two numbers.
+ */
+function multiply(first, second) {
+  return first * second;
 }
 
 /**
@@ -52,6 +64,38 @@ function increment(incrementBy, invocation) {
   invocation.onCanceled = () => {
     clearInterval(timer);
   };
+}
+
+/**
+ * Fetches data from a GitHub repository and returns it as a string array.
+ * @customfunction
+ * @param {string} url The URL of the GitHub repository API.
+ * @returns {string[][]} The repository data.
+ */
+async function fetchGitHubData() {
+  const url = "https://api.github.com/repos/robertoborges/demo-js-excel";
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    const data = await response.json();
+    return [
+      ["ID", "Name", "Full Name", "Description", "Stars", "Forks", "Open Issues"],
+      [
+        data.id,
+        data.name,
+        data.full_name,
+        data.description,
+        data.stargazers_count,
+        data.forks_count,
+        data.open_issues_count,
+      ],
+    ];
+  } catch (error) {
+    console.error("Fetch error: ", error);
+    return [["Error fetching data"]];
+  }
 }
 
 /**
